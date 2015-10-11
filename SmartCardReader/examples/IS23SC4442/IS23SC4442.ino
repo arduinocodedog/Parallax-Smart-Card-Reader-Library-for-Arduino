@@ -126,14 +126,6 @@ void Show_Memory()
 {
 	Serial.println("Show Memory...");
 	
-	// Reset Memory Location to Beginning
-	CardReader.SetLocation(0x00);
-	
-	// Read All Data from the Card
-	uint8_t data[256];
-	for (int i = 0; i <= 255; i++)
-		data[i] = CardReader.Read();
-	
 	uint8_t bstr[16];
 	int bcnt = 0;
 	int datapos = 0;
@@ -158,7 +150,7 @@ void Show_Memory()
 			Serial.print(index / 16, HEX);
 			Serial.print(" |");
 		}
-		uint8_t Temp = data[datapos++];
+		uint8_t Temp = CardReader.Read((uint8_t) index);
 		bstr[bcnt++] = Temp;
 		Serial.print(" ");
 		if (Temp < 0x10) // add a leading zero if < 10 hex.

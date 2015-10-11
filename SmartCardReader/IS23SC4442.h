@@ -22,11 +22,10 @@ public:
 	IS23SC4442(int IOPin = A4, int CLKPin = A5, int CDPin = 3, int RSTPin = 2, int Delay = 50);
 	
 	void Initialize();
-	void SetLocation(uint8_t Location);
-	uint8_t Read();
+	uint8_t Read(uint8_t Location);
 	void Write(uint8_t Location, uint8_t Val);
 	uint8_t Authenticate();
-	
+
 private:
 	void _Process();
 	uint8_t _Read();
@@ -34,7 +33,8 @@ private:
 	uint8_t _ReadSecurity();
 	void _SendCommand(uint8_t Command, uint8_t Address, uint8_t Data);
 
-
+	bool _WriteOccurred;
+	uint8_t _ReadBuffer[256];
 };
 
 #endif // _IS23SC4442_H
