@@ -128,7 +128,6 @@ void Show_Memory()
 	
 	uint8_t bstr[16];
 	int bcnt = 0;
-	int datapos = 0;
 
 	Serial.println("                            [ D A T A ]");
 	Serial.print(" * |");

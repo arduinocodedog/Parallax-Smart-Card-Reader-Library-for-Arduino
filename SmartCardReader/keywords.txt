@@ -14,7 +14,6 @@ IS23SC4442	KEYWORD1
 IsCardDetected	KEYWORD2
 IsDevicePresent	KEYWORD2
 Initialize	KEYWORD2
-SetLocation	KEYWORD2
 Read	KEYWORD2
 Write	KEYWORD2
 Authenticate	KEYWORD2
