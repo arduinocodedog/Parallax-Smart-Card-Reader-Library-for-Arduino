@@ -25,7 +25,7 @@
 // Components required:
 //
 // An Arduino or compatible should work ... 
-//    I tested with an Arduino UNO SMD and an Arduino Mega 2560 R3 ... both worked.
+//    I tested with an Arduino UNO SMD, an Arduino UNO R3 and an Arduino Mega 2560 R3 ... all 3 worked.
 // A Parallax Smart Card Reader.
 // A IS23SC4442 (32321) Smart Card.
 //
@@ -64,10 +64,12 @@ void loop()
 			if (IsAuthenticated())
 			{
 				Write_Memory();
-				Show_Memory();
+				Read_Memory();
 				Clear_Memory();
-				Show_Memory();
+				Read_Memory();
 			}
+			else
+				Serial.println("Authentication Failed!");
 		}
 		else
 			Serial.println("Card Removed!");
@@ -122,9 +124,9 @@ void Clear_Memory()
 	Serial.println(" Done.");
 }
 
-void Show_Memory()
+void Read_Memory()
 {
-	Serial.println("Show Memory...");
+	Serial.println("Read Memory...");
 	
 	uint8_t bstr[16];
 	int bcnt = 0;

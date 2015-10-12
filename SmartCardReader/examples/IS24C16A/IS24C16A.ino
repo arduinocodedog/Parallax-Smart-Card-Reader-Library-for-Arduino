@@ -19,7 +19,7 @@
 // Components required:
 //
 // An Arduino or compatible should work ... 
-//    I tested with an Arduino UNO SMD and an Arduino Mega 2560 R3 ... both worked.
+//    I tested with an Arduino UNO SMD, an Arduino UNO R3 and an Arduino Mega 2560 R3 ... all 3 worked.
 // A Parallax Smart Card Reader.
 // A IS24C16A (32322) Smart Card.
 //
@@ -125,7 +125,7 @@ void Write_Memory(uint8_t page)
 
 void Read_Memory(uint8_t page)
 {
-  Serial.print("Read Main...Page ");
+  Serial.print("Reading Memory...Page ");
   Serial.println(page + 1);
   
   uint8_t bstr[16];
