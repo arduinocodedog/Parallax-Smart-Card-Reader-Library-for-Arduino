@@ -19,6 +19,8 @@ public:
 		DelayAmt = Delay;
 
 		Input(CD);
+		
+		_HoldCardDetected = false;
 	}
 	
 	bool IsCardDetected();
@@ -35,6 +37,14 @@ protected:
 	int CD;
 	int RST;
 	int DelayAmt;
+	
+private:
+	virtual void _OnCardDetected() 
+	{ 
+		// We don't really need to do anything for IS24SC02A and IS24SC16A Cards 
+		// but there is an override of this function for the IS23SC4442 Card
+	}
+	bool _HoldCardDetected;
 };
 
 #endif // _SMARTCARDREADER_H

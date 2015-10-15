@@ -32,8 +32,9 @@ private:
 	void _Write(uint8_t data);
 	uint8_t _ReadSecurity();
 	void _SendCommand(uint8_t Command, uint8_t Address, uint8_t Data);
+	void _OnCardDetected();
 
-	bool _WriteOccurred;
+	bool _ReadRefresh;
 	uint8_t _ReadBuffer[256];
 };
 

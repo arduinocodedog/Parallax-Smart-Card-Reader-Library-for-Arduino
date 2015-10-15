@@ -3,7 +3,7 @@
 IS23SC4442::IS23SC4442(int IOPin, int CLKPin, int CDPin, int RSTPin, int Delay)
 	: SmartCardReader(IOPin, CLKPin, CDPin, RSTPin, Delay)
 {
-	_WriteOccurred = true;
+	_ReadRefresh = true;
 }
 
 void IS23SC4442::Initialize()
@@ -27,9 +27,9 @@ void IS23SC4442::Initialize()
 
 uint8_t IS23SC4442::Read(uint8_t Location)
 {
-  if (_WriteOccurred)
+  if (_ReadRefresh)
   {
-	  _WriteOccurred = false;
+	  _ReadRefresh = false;
       _SendCommand(ReadMain, 0x00, 0x00);
 	  for (int i = 0; i < 256; i++)
 		  _ReadBuffer[i] = _Read();
@@ -40,7 +40,7 @@ uint8_t IS23SC4442::Read(uint8_t Location)
 
 void IS23SC4442::Write(uint8_t Location, uint8_t Val)
 {
-  _WriteOccurred = true;
+  _ReadRefresh = true;
   _SendCommand(UpdateMain, Location, Val);
 }
 
@@ -171,5 +171,10 @@ uint8_t IS23SC4442::_ReadSecurity()
   uint8_t PSW3 = _Read();
   
   return errCounter;
+}
+
+void IS23SC4442::_OnCardDetected()
+{
+	_ReadRefresh = true;
 }
 
