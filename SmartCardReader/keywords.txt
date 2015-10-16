@@ -16,6 +16,9 @@ IsDevicePresent	KEYWORD2
 Initialize	KEYWORD2
 Read	KEYWORD2
 Write	KEYWORD2
+ReadString	KEYWORD2
+WriteString	KEYWORD2
+ClearString	KEYWORD2
 Authenticate	KEYWORD2
 #######################################
 # Strcutures and Classes (KEYWORD3)

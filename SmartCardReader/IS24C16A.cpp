@@ -63,6 +63,42 @@ void IS24C16A::Write(uint8_t Page, uint8_t Location, uint8_t Val)
 	DelayAmt = 50;
 }
 
+void IS24C16A::ReadString(uint8_t Page, uint8_t Location, int Len, char *String)
+{
+	for (int i = 0; i < Len; i++)
+	{
+		if (Location < 256)
+		{
+			*String++ = (char) Read(Page, Location++);
+			*String = NULL;
+		}
+	}
+}
+
+void IS24C16A::WriteString(uint8_t Page, uint8_t Location, const char *String)
+{
+	for (int i = 0; i < strlen(String); i++)
+	{
+		if (Location < 256)
+		{
+			Write(Page, Location++, (uint8_t) String[i]);
+			if (Location < 256)
+				Write(Page, Location, (uint8_t) NULL);
+		}
+	}
+}
+
+void IS24C16A::ClearString(uint8_t Page, uint8_t Location, int Len)
+{
+	for (int i = 0; i < Len; i++)
+	{
+		if (Location < 256)
+		{
+			Write(Page, Location++, (uint8_t) NULL);
+		}
+	}
+}
+
 void IS24C16A::_Start()
 {
   Output(IO);

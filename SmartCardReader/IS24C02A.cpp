@@ -62,6 +62,42 @@ void IS24C02A::Write(uint8_t Location, uint8_t Val)
 	DelayAmt = 50;
 }
 
+void IS24C02A::ReadString(uint8_t Location, int Len, char *String)
+{
+	for (int i = 0; i < Len; i++)
+	{
+		if (Location < 256)
+		{
+			*String++ = (char) Read(Location++);
+			*String = NULL;
+		}
+	}
+}
+
+void IS24C02A::WriteString(uint8_t Location, const char *String)
+{
+	for (int i = 0; i < strlen(String); i++)
+	{
+		if (Location < 256)
+		{
+			Write(Location++, (uint8_t) String[i]);
+			if (Location < 256)
+				Write(Location, (uint8_t) NULL);
+		}
+	}
+}
+
+void IS24C02A::ClearString(uint8_t Location, int Len)
+{
+	for (int i = 0; i < Len; i++)
+	{
+		if (Location < 256)
+		{
+			Write(Location++, (uint8_t) NULL);
+		}
+	}
+}
+
 void IS24C02A::_Start()
 {
   Output(IO);

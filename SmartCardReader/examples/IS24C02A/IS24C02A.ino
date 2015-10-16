@@ -14,6 +14,7 @@
 // 2 - Displays a memory dump
 // 3 - Clears all memory locations (sets all locations to 0)
 // 4 - Displays another memory dump.
+// 5 - Runs through a Test of the String Functions available.
 //
 // Components required:
 //
@@ -61,6 +62,7 @@ void loop()
         Read_Memory();
         Clear_Memory();
         Read_Memory();
+        Test_String();
       }
       else
         Serial.println("Device not present.");  
@@ -146,4 +148,29 @@ void Read_Memory()
   Serial.println("");
   Serial.println(" --------------------------------------------------------------------");
   Serial.println(" Done.");  
+}
+
+void Test_String()
+{
+  Serial.println("String Function Test...");  
+  Serial.println(" Writing String");
+  CardReader.WriteString(0x0A, "This is a Test.");
+  Serial.println(" Done.");  
+
+  Serial.println(" Reading String");
+  char ReadBuffer[16];
+  CardReader.ReadString(0x0A, 15, ReadBuffer);
+  Serial.print(" String Read: ");
+  Serial.println(ReadBuffer);
+  Serial.print(" Length of String: ");
+  Serial.println(strlen(ReadBuffer));
+  Serial.println(" Done.");  
+
+  Read_Memory();
+
+  Serial.println(" Clearing String");
+  CardReader.ClearString(0x0A,15);
+  Serial.println(" Done.");  
+
+  Read_Memory();
 }

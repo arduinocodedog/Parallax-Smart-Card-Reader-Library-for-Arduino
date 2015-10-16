@@ -24,8 +24,11 @@ public:
 	void Initialize();
 	uint8_t Read(uint8_t Location);
 	void Write(uint8_t Location, uint8_t Val);
+	void WriteString(uint8_t Location, const char *String);
+	void ReadString(uint8_t Location, int Len, char *String);
+	void ClearString(uint8_t Location, int Len);
 	uint8_t Authenticate();
-
+	
 private:
 	void _Process();
 	uint8_t _Read();

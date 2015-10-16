@@ -15,6 +15,7 @@
 // 2 - Displays a memory dump of all 8 pages
 // 3 - Clears all memory locations of all pages (sets all locations to 0)
 // 4 - Displays another memory dump of all 8 pages
+// 5 - Runs through a test of the String Functions Available (test uses Page 5 only)
 //
 // Components required:
 //
@@ -88,6 +89,8 @@ void loop()
         else
           Serial.println("Device not present.");  
       }
+	  
+	  Test_String();
     }
     else
       Serial.println("Card Removed!");
@@ -173,4 +176,29 @@ void Read_Memory(uint8_t page)
   Serial.println("");
   Serial.println(" --------------------------------------------------------------------");
   Serial.println(" Done.");
+}
+
+void Test_String()
+{
+  Serial.println("String Function Test...Page 5");  
+  Serial.println(" Writing String");
+  CardReader.WriteString(5, 0x0A, "This is a Test.");
+  Serial.println(" Done.");  
+
+  Serial.println(" Reading String");
+  char ReadBuffer[16];
+  CardReader.ReadString(5, 0x0A, 15, ReadBuffer);
+  Serial.print(" String Read: ");
+  Serial.println(ReadBuffer);
+  Serial.print(" Length of String: ");
+  Serial.println(strlen(ReadBuffer));
+  Serial.println(" Done.");  
+
+  Read_Memory(5);
+
+  Serial.println(" Clearing String");
+  CardReader.ClearString(5, 0x0A,15);
+  Serial.println(" Done.");  
+
+  Read_Memory(5);
 }

@@ -44,6 +44,52 @@ void IS23SC4442::Write(uint8_t Location, uint8_t Val)
   _SendCommand(UpdateMain, Location, Val);
 }
 
+void IS23SC4442::ReadString(uint8_t Location, int Len, char *String)
+{
+	for (int i = 0; i < Len; i++)
+	{
+		if (Location < 256)
+		{
+			*String++ = (char) Read(Location++);
+			*String = NULL;
+		}
+	}
+}
+
+void IS23SC4442::WriteString(uint8_t Location, const char *String)
+{
+	for (int i = 0; i < strlen(String); i++)
+	{
+		if (Location < 256)
+		{
+			// For some reason, I have to write the first character
+			// of the string twice for IS23SC4442 cards ... no idea why.
+			if (i == 0)
+				Write(Location, (uint8_t) String[i]);
+			
+			Write(Location++, (uint8_t) String[i]);
+			if (Location < 256)
+				Write(Location, (uint8_t) NULL);
+		}
+	}
+}
+
+void IS23SC4442::ClearString(uint8_t Location, int Len)
+{
+	for (int i = 0; i < Len; i++)
+	{
+		if (Location < 256)
+		{
+			// For some reason, I have to write the first character
+			// of the string twice for IS23SC4442 cards ... no idea why.
+			if (i == 0)
+				Write(Location, (uint8_t) NULL);
+			
+			Write(Location++, (uint8_t) NULL);
+		}
+	}
+}
+
 uint8_t IS23SC4442::Authenticate()
 {
   uint8_t Data = 0x03;  // Just make sure we never lock the Card
