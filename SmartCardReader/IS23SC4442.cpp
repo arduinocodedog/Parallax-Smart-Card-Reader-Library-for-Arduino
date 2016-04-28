@@ -51,7 +51,7 @@ void IS23SC4442::ReadString(uint8_t Location, int Len, char *String)
 		if (Location < 256)
 		{
 			*String++ = (char) Read(Location++);
-			*String = NULL;
+			*String = (char) NULL;
 		}
 	}
 }

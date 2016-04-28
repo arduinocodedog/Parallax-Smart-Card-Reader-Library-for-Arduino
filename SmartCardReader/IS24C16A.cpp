@@ -70,7 +70,7 @@ void IS24C16A::ReadString(uint8_t Page, uint8_t Location, int Len, char *String)
 		if (Location < 256)
 		{
 			*String++ = (char) Read(Page, Location++);
-			*String = NULL;
+			*String = (char) NULL;
 		}
 	}
 }
