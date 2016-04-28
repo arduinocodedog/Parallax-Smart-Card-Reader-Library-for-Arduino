@@ -180,7 +180,7 @@ void Read_Memory(uint8_t page)
 
 void Test_String()
 {
-  Serial.println("String Function Test...Page 5");  
+  Serial.println("String Function Test...Page 6");  
   Serial.println(" Writing String");
   CardReader.WriteString(5, 0x0A, "This is a Test.");
   Serial.println(" Done.");  
